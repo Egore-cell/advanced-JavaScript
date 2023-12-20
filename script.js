@@ -10,14 +10,14 @@ const renderGoodsItem = (title, price) => {
     <div class="goods-item">
     <h3>${title}</h3>
     <p>${price}</p>
-    </div>`
-        ;
+    </div>
+    `;
 }
 
 const renderGoodsList = (list) => {
     let goodsList = list.map((item) => {
         return renderGoodsItem(item.title, item.price)
-    });
+    })
     document.querySelector('.goods-list').innerHTML = goodsList;
 }
 
