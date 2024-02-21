@@ -33,7 +33,7 @@ class GoodsList {
     }
 
     calculatePrice() {
-        this.list.reduce((accumulator, item, index, list) => {
+        return this.list.reduce((accumulator, item, index, list) => {
             return accumulator + item.price;
         }, 0)
     }
