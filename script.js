@@ -1,20 +1,36 @@
+
+const URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const GOODS = '/catalogData.json';
+const url = `${URL}${GOODS}`;
+
+function service(url, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+
+    xhr.onload = () => {
+        const result = JSON.parse(xhr.response);
+        callback(result);
+    }
+    xhr.send();
+}
+
 const goods = [
-    { title: 'Shirt', price: 150 },
-    { title: 'Socks', price: 50 },
-    { title: 'Jacket', price: 350 },
-    { title: 'Shoes', price: 250 },
+    { product_name: 'Shirt', price: 150 },
+    { product_name: 'Socks', price: 50 },
+    { product_name: 'Jacket', price: 350 },
+    { product_name: 'Shoes', price: 250 },
 ];
 
 class GoodsItem {
-    constructor({ title = '', price = 0 }) {
-        this.title = title;
+    constructor({ product_name = '', price = 0 }) {
+        this.product_name = product_name;
         this.price = price;
     }
 
     render() {
         return `
     <div class="goods-item">
-    <h3>${this.title}</h3>
+    <h3>${this.product_name}</h3>
     <p>${this.price}</p>
     </div>
     `;
@@ -28,7 +44,12 @@ class GoodsList {
 
     list = [];
 
-    fetchGoods() {
+    fetchGoods(callback) {
+        service(url, (data) => {
+            this.list = data;
+            callback();
+        });
+
         this.list = goods;
     }
 
@@ -49,6 +70,7 @@ class GoodsList {
 
 
 const goodsList = new GoodsList(goods);
-goodsList.fetchGoods();
-goodsList.render();
-const calculateGoods = goodsList.calculatePrice();
+goodsList.fetchGoods(() => {
+    goodsList.render();
+});
+
