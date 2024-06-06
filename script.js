@@ -49,8 +49,6 @@ class GoodsList {
             this.list = data;
             callback();
         });
-
-        this.list = goods;
     }
 
     calculatePrice() {
