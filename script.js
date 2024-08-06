@@ -3,15 +3,16 @@ const URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-a
 const GOODS = '/catalogData.json';
 const url = `${URL}${GOODS}`;
 
-function service(url, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
+function service(url) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.onload = () => {
+            resolve(JSON.parse(xhr.response));
+        }
+        xhr.send();
+    })
 
-    xhr.onload = () => {
-        const result = JSON.parse(xhr.response);
-        callback(result);
-    }
-    xhr.send();
 }
 
 const goods = [
@@ -44,11 +45,10 @@ class GoodsList {
 
     list = [];
 
-    fetchGoods(callback) {
-        service(url, (data) => {
+    fetchGoods() {
+        return service(url).then((data) => {
             this.list = data;
-            callback();
-        });
+        })
     }
 
     calculatePrice() {
@@ -68,7 +68,7 @@ class GoodsList {
 
 
 const goodsList = new GoodsList(goods);
-goodsList.fetchGoods(() => {
+goodsList.fetchGoods().then(() => {
     goodsList.render();
-});
+})
 
