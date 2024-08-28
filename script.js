@@ -1,26 +1,21 @@
-
-const URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
-const GOODS = '/catalogData.json';
-const url = `${URL}${GOODS}`;
-
-function service(url) {
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', url);
-        xhr.onload = () => {
-            resolve(JSON.parse(xhr.response));
-        }
-        xhr.send();
-    })
-
-}
-
 const goods = [
     { product_name: 'Shirt', price: 150 },
     { product_name: 'Socks', price: 50 },
     { product_name: 'Jacket', price: 350 },
     { product_name: 'Shoes', price: 250 },
 ];
+
+const URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const GOODS = '/catalogData.json';
+const url = `${URL}${GOODS}`;
+
+
+function service(url) {
+    return fetch(url).then((response) => {
+        return response.json();
+    });
+}
+
 
 class GoodsItem {
     constructor({ product_name = '', price = 0 }) {
