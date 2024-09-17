@@ -9,61 +9,63 @@ const URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-a
 const GOODS = '/catalogData.json';
 const url = `${URL}${GOODS}`;
 
-
 function service(url) {
     return fetch(url).then((response) => {
         return response.json();
     });
 }
 
+const app = new Vue({
+    el: document.getElementById('root'),
 
-class GoodsItem {
-    constructor({ product_name = '', price = 0 }) {
-        this.product_name = product_name;
-        this.price = price;
-    }
+    data: {
+        goods: [],
+        search: '',
+    },
 
-    render() {
-        return `
-    <div class="goods-item">
-    <h3>${this.product_name}</h3>
-    <p>${this.price}</p>
-    </div>
-    `;
-    }
-}
-
-class GoodsList {
-    // constructor(list = []) {
-    //     this.list = list;
-    // }
-
-    list = [];
-
-    fetchGoods() {
-        return service(url).then((data) => {
-            this.list = data;
-        })
-    }
-
-    calculatePrice() {
-        this.list.reduce((accumulator, item, index, list) => {
-            return accumulator + item.price;
-        }, 0)
-    }
-
-    render() {
-        const resultList = this.list.map((item) => {
-            const goodsItem = new GoodsItem(item);
-            return goodsItem.render();
+    mounted() {
+        service(url).then((data) => {
+            this.goods = data;
         });
-        document.querySelector('.goods-list').innerHTML = resultList.join('');
+    },
+    computed: {
+        calculatePrice() {
+            return this.goods.reduce((accumulator, item, index, list) => {
+                return accumulator + item.price;
+            }, 0)
+        },
+
+        filteredGoods() {
+            return this.goods.filter((item) => {
+                const regExp = new RegExp(this.search);
+                return regExp.test(item.product_name);
+            })
+        }
     }
-}
-
-
-const goodsList = new GoodsList(goods);
-goodsList.fetchGoods().then(() => {
-    goodsList.render();
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
