@@ -21,6 +21,13 @@ const app = new Vue({
     data: {
         goods: [],
         search: '',
+        isVisibleCard: false,
+    },
+
+    methods: {
+        setVisibleCard() {
+            this.isVisibleCard = !this.isVisibleCard;
+        }
     },
 
     mounted() {

@@ -16,11 +16,11 @@
 
             <div class="search">
                 <input class="goods-search" type="text" v-model="search">
-
+                <button type="button" class="search-button">искать</button>
             </div>
 
             <div class="action">
-                <button class="card-button" type="button">Корзина</button>
+                <button class="card-button" type="button" @click="setVisibleCard">Корзина</button>
             </div>
 
         </header>
@@ -34,11 +34,25 @@
             </div>
 
             <div>{{search}}</div>
+            <div v-if="!filteredGoods.length">нет данных</div>
         </main>
         <div>{{calculatePrice}}</div>
+
+        <div class="fixed-area" v-if="isVisibleCard">
+            <div class="basket-card">
+                <div class="basket-card__header">
+                    <h1 class="basket-card__header__title">basket card</h1>
+                    <div class="basket-card__header__delete-icon" @click="setVisibleCard"></div>
+                </div>
+
+                <div class="basket-card__content">content</div>
+            </div>
+
+        </div>
         <script src="script.js"></script>
 
     </div>
+
 
 </body>
 
