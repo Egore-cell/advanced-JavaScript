@@ -26,8 +26,8 @@
         </header>
 
         <main class="main">
-            <div class="goods-list" v-for="item in filteredGoods">
-                <div class="goods-item">
+            <div class="goods-list">
+                <div class="goods-item" v-for="item in filteredGoods">
                     <h3>${{item.product_name}}</h3>
                     <p>${{item.price}}</p>
                 </div>

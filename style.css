@@ -34,11 +34,6 @@ header {
     padding: 10px;
 }
 
-.main {
-    display: flex;
-    justify-content: center;
-}
-
 .goods-list {
     display: flex;
     justify-content: center;
