@@ -17,29 +17,33 @@ function service(url) {
 
 const app = new Vue({
     el: document.getElementById('root'),
-
     data: {
         goods: [],
         search: '',
         isVisibleCard: false,
     },
 
+
     methods: {
         setVisibleCard() {
-            this.isVisibleCard = !this.isVisibleCard;
+            this.isVisibleCard = !this.isVisibleCard
         }
     },
+
 
     mounted() {
         service(url).then((data) => {
             this.goods = data;
-        });
+        })
     },
+
+
     computed: {
         calculatePrice() {
             return this.goods.reduce((accumulator, item, index, list) => {
                 return accumulator + item.price;
             }, 0)
+
         },
 
         filteredGoods() {
@@ -50,6 +54,32 @@ const app = new Vue({
         }
     }
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

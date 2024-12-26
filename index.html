@@ -9,34 +9,25 @@
 </head>
 
 <body>
-
     <div id="root">
         <header>
             <h1 class="title">eShop</h1>
-
-            <div class="search">
-                <input class="goods-search" type="text" v-model="search">
-                <button type="button" class="search-button">искать</button>
-            </div>
-
             <div class="action">
-                <button class="card-button" type="button" @click="setVisibleCard">Корзина</button>
+                <button class="card-button" type="button" v-on:click="setVisibleCard">Корзина</button>
+                <input class="goods-search" type="text" v-model="search">
             </div>
 
         </header>
-
-        <main class="main">
+        <main>
             <div class="goods-list">
                 <div class="goods-item" v-for="item in filteredGoods">
                     <h3>${{item.product_name}}</h3>
                     <p>${{item.price}}</p>
                 </div>
             </div>
-
+            <div>{{calculatePrice}}</div>
             <div>{{search}}</div>
-            <div v-if="!filteredGoods.length">нет данных</div>
         </main>
-        <div>{{calculatePrice}}</div>
 
         <div class="fixed-area" v-if="isVisibleCard">
             <div class="basket-card">
@@ -50,7 +41,6 @@
 
         </div>
         <script src="script.js"></script>
-
     </div>
 
 
