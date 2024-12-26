@@ -16,21 +16,19 @@
 
             <div class="search">
                 <input class="goods-search" type="text" v-model="search">
-                <button type="button" class="search-button">искать</button>
+                <custom_button v-on:click="filteredGoods">искать</custom_button>
+
             </div>
 
             <div class="action">
-                <button class="card-button" type="button" @click="setVisibleCard">Корзина</button>
+                <custom_button v-on:click="setVisibleCard">Корзина</custom_button>
             </div>
 
         </header>
 
         <main class="main">
             <div class="goods-list">
-                <div class="goods-item" v-for="item in filteredGoods">
-                    <h3>${{item.product_name}}</h3>
-                    <p>${{item.price}}</p>
-                </div>
+                <goods_item v-for="item in filteredGoods" v-bind:item="item"></goods_item>
             </div>
 
             <div>{{search}}</div>
@@ -38,17 +36,9 @@
         </main>
         <div>{{calculatePrice}}</div>
 
-        <div class="fixed-area" v-if="isVisibleCard">
-            <div class="basket-card">
-                <div class="basket-card__header">
-                    <h1 class="basket-card__header__title">basket card</h1>
-                    <div class="basket-card__header__delete-icon" @click="setVisibleCard"></div>
-                </div>
 
-                <div class="basket-card__content">content</div>
-            </div>
+        <basket v-on:close="setVisibleCard" v-if="isVisibleCard"></basket>
 
-        </div>
         <script src="script.js"></script>
 
     </div>
