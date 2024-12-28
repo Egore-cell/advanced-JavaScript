@@ -103,8 +103,6 @@ const app = new Vue({
     }
 })
 
-
-
 window.onload = init;
 
 
